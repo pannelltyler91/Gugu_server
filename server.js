@@ -17,9 +17,9 @@ app.use(
   })
 );
 
-app.post('/login', (req,res) => {
+app.post('/login', async (req,res) => {
   console.log(req.body)
-  db.user.findAll({
+   await db.user.findAll({
     where:{
       username:req.body.email
     }
@@ -48,7 +48,6 @@ app.post('/login', (req,res) => {
     }
     
   })
-  res.json({message:'it worked'})
 })
 
 app.listen(port, () => {
