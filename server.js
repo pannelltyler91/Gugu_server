@@ -38,7 +38,7 @@ app.post('/login', async (req,res) => {
           message: "Login was successful",
           loggedIn: true,
           accessToken: accessToken,
-          userId:user.id
+          user:{username:user.username,id:user.id}
         });
       } else{
         res
