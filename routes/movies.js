@@ -32,9 +32,9 @@ router.post('/add', (req,res) => {
 router.get('/', (req,res) =>{
     console.log(req.body)
     db.movies.findAll({}).then((movies) => {
-        res.json({message:'got movies', watchList:movies})
+        res.status(201).json({message:'got movies', watchList:movies})
     })
-    res.json({message:'it worked'})
+    
 })
 
 
