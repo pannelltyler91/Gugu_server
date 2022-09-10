@@ -40,12 +40,12 @@ router.get('/', (req,res) =>{
 
 router.delete('/:id', (req,res) =>{
     console.log(req.params.id)
-    db.movies.delete({
+    db.movies.destroy({
         where:{
             imdbID:req.params.id
         }
     }).then((movie) =>{
-        res.status(201).json({message:'removed from watchList succesfully'})
+        res.status(201).json({message:'removed from watchList succesfully',movieID:req.params.id})
     })
     
 })
