@@ -10,14 +10,13 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      calendar.belongsTo(models.user);
-      models.user.hasMany(calendar);
+      // define association here
     }
   }
   calendar.init({
-    date: DataTypes.STRING,
     event: DataTypes.STRING,
     time: DataTypes.STRING,
+    date: DataTypes.STRING,
     user_id: DataTypes.INTEGER
   }, {
     sequelize,

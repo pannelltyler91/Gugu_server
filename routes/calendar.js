@@ -23,8 +23,25 @@ router.get('/:date', (res,req) =>{
 router.post("/add",  async (req, res) => {
     try {
     //listing messages in users mailbox 
-      await db.calendar.findAll({})
-      res.json({message:'its working'})
+      await db.calendar.findAll({
+          where:{
+              date:req.body.date,
+              time:req.body.time,
+              user_id:req.body.id
+
+          }
+      }).then((event) =>{
+          if(event.length === 0){
+              db.calendar.create({
+                date:req.body.date,
+                time:req.body.time,
+                user_id:req.body.id,
+                event:req.body.event
+
+              })
+              res.status(201).json({message:'event added'})
+          }
+      })
     } catch (err) {
       res.json({error:err});
     }

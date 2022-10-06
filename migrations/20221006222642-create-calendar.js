@@ -8,23 +8,17 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      date: {
-        type: Sequelize.STRING
-      },
       event: {
         type: Sequelize.STRING
       },
       time: {
         type: Sequelize.STRING
       },
+      date: {
+        type: Sequelize.STRING
+      },
       user_id: {
-        type: Sequelize.INTEGER,
-        allowNull:true,
-        references:{
-          model:'user',
-          key:'id',
-          as:'user_id'
-        }
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
