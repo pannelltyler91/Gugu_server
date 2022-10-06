@@ -20,15 +20,15 @@ router.get('/:date', (res,req) =>{
     })
 })
 
-router.post('/add', (req,res) =>{
-    console.log(req.body, 'this is working')
-     res.json({message:'its working'})
-  db.calendar.findAll({
-
-     }).then((events) =>{
-        console.log(events)
-     })
-})
+router.post("/add",  async (req, res) => {
+    try {
+    //listing messages in users mailbox 
+      await db.calendar.findAll({})
+      res.json({message:'its working'})
+    } catch (err) {
+      res.json({error:err});
+    }
+  })
 
 
 
