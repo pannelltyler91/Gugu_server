@@ -8,7 +8,13 @@ module.exports = {
       password:bcrypt.hashSync("test", 10) ,
       createdAt: new Date(),
       updatedAt: new Date()
-    }]);
+    }, {
+      username:'yoonjung@gmail.com',
+      password:bcrypt.hashSync("test2", 10) ,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },
+  ]);
   },
   down: (queryInterface, Sequelize) => {
     return queryInterface.bulkDelete('users', null, {});

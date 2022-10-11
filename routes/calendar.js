@@ -6,28 +6,36 @@ const db = require("../models");
 router.use(cors());
 router.use(express.json());
 
-router.get('/:date', (res,req) =>{
-    db.calendar.findAll({
-        where:{
-            date:req.params.date
-        }
-    }).then((events) => {
-        if(events.length > 0){
-            res.status(201).json({events:events, message:"got events"})
-        }else{
-            res.status(404).json({message:'no events exist for this date'})
-        }
-    })
+router.get("/:date/:id", async(req,res) =>{
+    try{
+        await db.calendar.findAll({
+            where:{
+                date:req.params.date,
+                user_id:req.params.id
+            }
+        }).then((events) =>{
+            if(events.length > 0){
+                res.status(201).json({events:events,message:'got events'})
+            }
+        })
+
+    }catch(err){
+        res.json({error:err})
+    }
 })
 
-router.post("/add",  async (req, res) => {
+
+
+
+router.post("/add/:id",  async (req, res) => {
     try {
+        console.log(req.body,req.params.id)
     //listing messages in users mailbox 
       await db.calendar.findAll({
           where:{
               date:req.body.date,
               time:req.body.time,
-              user_id:req.body.id
+              user_id:req.params.id
 
           }
       }).then((event) =>{
@@ -35,7 +43,7 @@ router.post("/add",  async (req, res) => {
               db.calendar.create({
                 date:req.body.date,
                 time:req.body.time,
-                user_id:req.body.id,
+                user_id:req.params.id,
                 event:req.body.event
 
               })
@@ -48,7 +56,21 @@ router.post("/add",  async (req, res) => {
   })
 
 
+router.delete('/:id/:eventID', async (req,res) =>{
+    try{
+        db.calendar.destroy({
+            where:{
+                id:req.params.eventID,
+                user_id:req.params.id
+            }
+        }).then(() =>{
+            res.status(201).json({message:'removed from calendar succesfully',eventID:req.params.id})
+        })
 
+    }catch(err){
+        res.json({error:err})
+    }
+})
 
 
 
